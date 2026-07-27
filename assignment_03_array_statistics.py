@@ -48,14 +48,14 @@ def add(numbers):
 def average(numbers):
     return add(numbers) / len(numbers)
 
-def max(numbers):
+def find_max(numbers):
     largest = numbers[0]
     for n in numbers:
         if n > largest:
             largest = n
     return largest
 
-def min(numbers):
+def find_min(numbers):
     smallest = numbers[0]
     for n in numbers:
         if n < smallest:
@@ -76,7 +76,7 @@ def main():
     print("Results:")
     print(f"Sum:     {add(numbers)}")
     print(f"Average: {average(numbers)}")
-    print(f"Maximum: {max(numbers)}")
-    print(f"Minimum: {min(numbers)}")
+    print(f"Maximum: {find_max(numbers)}")
+    print(f"Minimum: {find_min(numbers)}")
 
 main()
