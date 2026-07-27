@@ -34,7 +34,7 @@
 #   13 is a Fibonacci number.
 #
 #   Enter a number to check: 20
-#   20 is NOT a Fibonacci number.
+#   20 is NOT a Fibonacci number
 #
 # -----------------------------------------------------------------------------
 # REQUIREMENTS
@@ -49,3 +49,39 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def fibonacci_terms(n):
+    a = 0
+    b = 1
+    numbers = []
+    for i in range(n):
+        numbers.append(a)
+        a,b = b, a + b
+    return numbers
+    
+   
+
+def is_fibonacci(number):
+    a = 0
+    b = 1
+    while a < number:
+        a, b = b, a + b
+    return a == number  
+
+
+def main():
+
+    count = int(input("How many terms? "))
+    if count <= 0:
+        print("Error: N must be a positive integer.")
+        return
+
+    print("Fibonacci sequence:", *fibonacci_terms(count))
+        
+    target = int(input("Enter a number to check: "))
+    if is_fibonacci(target):
+        print(target, "is a Fibonacci number.")
+    else:
+        print(target, "is NOT a Fibonacci number.")
+
+
+main()
