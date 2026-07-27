@@ -67,4 +67,113 @@
 # =============================================================================
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
+def show_menu():
+    print()
+    print("=" * 28)
+    print("     SIMPLE CALCULATOR")
+    print("=" * 28)
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Modulus")
+    print("6. Exponentiation")
+    print("7. Quit")
 
+
+def add(a, b):
+    return a + b
+
+
+def subtract(a, b):
+    return a - b
+
+
+def multiply(a, b):
+    return a * b
+
+
+def divide(a, b):
+   
+    if b == 0:
+        return None
+    return round(a / b, 2)
+
+
+def modulus(a, b):
+    if b == 0:
+        return None
+    return a % b
+
+
+def power(a, b):
+    return a ** b
+
+
+def read_number(message):
+   
+    text = input(message)
+    try:
+        return float(text)
+    except ValueError:
+        print(f'Error: "{text}" is not a number.')
+        return None
+
+
+def format_number(number):
+    """Print 10 instead of 10.0, but leave 3.33 alone."""
+    if number == int(number):
+        return str(int(number))
+    return str(number)
+
+
+def main():
+    while True:
+        show_menu()
+        choice = input("Select an operation (1-7): ")
+
+        if choice == "7":
+            print("Goodbye!")
+            break
+
+        if choice not in ["1", "2", "3", "4", "5", "6"]:
+            print("Invalid choice. Please enter a number from 1 to 7.")
+            continue
+
+        first = read_number("Enter first number : ")
+        if first == None:
+            continue
+
+        second = read_number("Enter second number: ")
+        if second == None:
+            continue
+
+        if choice == "1":
+            symbol = "+"
+            result = add(first, second)
+        elif choice == "2":
+            symbol = "-"
+            result = subtract(first, second)
+        elif choice == "3":
+            symbol = "*"
+            result = multiply(first, second)
+        elif choice == "4":
+            symbol = "/"
+            result = divide(first, second)
+        elif choice == "5":
+            symbol = "%"
+            result = modulus(first, second)
+        else:
+            symbol = "**"
+            result = power(first, second)
+
+        if result == None:
+            print("Error: Cannot divide by zero.")
+        else:
+            a = format_number(first)
+            b = format_number(second)
+            answer = format_number(result)
+            print(f"Result: {a} {symbol} {b} = {answer}")
+
+
+main()
