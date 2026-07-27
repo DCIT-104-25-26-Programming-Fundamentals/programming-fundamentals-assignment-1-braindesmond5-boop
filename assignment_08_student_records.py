@@ -90,3 +90,140 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+
+def show_menu():
+    print()
+    print("=" * 32)
+    print("   STUDENT RECORD SYSTEM MENU")
+    print("=" * 32)
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+
+
+def average(scores):
+    total = 0
+    for score in scores:
+        total = total + score
+    return round(total / len(scores), 2)
+
+
+def scores_as_text(scores):
+    text = ""
+    for score in scores:
+        if text == "":
+            text = str(score)
+        else:
+            text = text + ", " + str(score)
+    return text
+
+
+def find_student(students, student_id):
+    for student in students:
+        if student["id"] == student_id:
+            return student
+    return None
+
+
+def add_student(students):
+    name = input("Student name: ")
+
+    student_id = input("Student ID: ")
+    if student_id.isdigit() == False:
+        print("Student ID must be a number.")
+        return
+    student_id = int(student_id)
+
+    if find_student(students, student_id) != None:
+        print(f"A student with ID {student_id} already exists.")
+        return
+
+    how_many = input("How many scores? ")
+    if how_many.isdigit() == False:
+        print("Please enter a number.")
+        return
+    how_many = int(how_many)
+
+    if how_many < 1:
+        print("A student must have at least one score.")
+        return
+
+    scores = []
+    for i in range(how_many):
+        score = input(f"Enter score {i + 1}: ")
+        if score.isdigit() == False:
+            print("Scores must be whole numbers. Adding cancelled.")
+            return
+        scores.append(int(score))
+
+    student = {
+        "name": name,
+        "id": student_id,
+        "scores": scores
+    }
+    students.append(student)
+    print(f'Student "{name}" added successfully.')
+
+
+def display_students(students):
+    if len(students) == 0:
+        print("No students have been added yet.")
+        return
+
+    print("-" * 50)
+    print(f"{'Name':<15}{'ID':<12}{'Scores':<15}{'Average'}")
+    print("-" * 50)
+
+    for student in students:
+        name = student["name"]
+        student_id = student["id"]
+        scores = scores_as_text(student["scores"])
+        avg = average(student["scores"])
+        print(f"{name:<15}{student_id:<12}{scores:<15}{avg:.2f}")
+
+    print("-" * 50)
+
+
+def calculate_average(students):
+    if len(students) == 0:
+        print("No students have been added yet.")
+        return
+
+    student_id = input("Enter student ID: ")
+    if student_id.isdigit() == False:
+        print("Student ID must be a number.")
+        return
+    student_id = int(student_id)
+
+    student = find_student(students, student_id)
+
+    if student == None:
+        print(f"Error: no student found with ID {student_id}.")
+    else:
+        avg = average(student["scores"])
+        print(f"{student['name']}'s average score: {avg:.2f}")
+
+
+def main():
+    students = []
+
+    while True:
+        show_menu()
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            add_student(students)
+        elif choice == "2":
+            display_students(students)
+        elif choice == "3":
+            calculate_average(students)
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number from 1 to 4.")
+
+
+main()
+
